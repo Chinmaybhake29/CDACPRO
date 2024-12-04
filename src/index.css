@@ -275,7 +275,7 @@ form{
   background-color: #2c3e50;
   color: #ecf0f1;
   padding: 20px;
-  height: 100vh;
+  height: 120vh;
 }
 
 .sidebar ul {
@@ -430,3 +430,41 @@ form{
         font-size: 1em;
       }
     }
+/* attendence */
+.attendence{
+  width: 90%;
+  max-width: 800px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.attendance-table thead {
+  background-color: #007BFF;
+  color: white;
+}
+
+.attendance-table th,
+.attendance-table td {
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.attendance-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.attendance-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.attendance-table td {
+  text-align: center;
+}
