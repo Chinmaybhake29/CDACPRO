@@ -457,11 +457,11 @@ form{
   border: 1px solid #ddd;
 }
 
-.attendance-table tbody tr:nth-child(even) {
+.attendance-table attendance-body tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.attendance-table tbody tr:hover {
+.attendance-table attendance-body tr:hover {
   background-color: #f1f1f1;
 }
 

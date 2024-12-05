@@ -67,6 +67,7 @@ const AdminDashboard = () => {
         {activeSection === "viewEmployees" && (
           <ViewEmployees employees={employees} deleteEmployee={deleteEmployee} />
         )}
+        
       </div>
     </div>
   );
