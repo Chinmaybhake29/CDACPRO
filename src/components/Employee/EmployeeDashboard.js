@@ -99,7 +99,34 @@ const EmployeeDashboard = () => {
   );
 
   const Project = () => {
-    <div className="section"></div>;
+    return (
+      <div className="project-section">
+        <h1 className="project-title">My Projects</h1>
+        <div className="project-list">
+          <div className="project-card">
+            <h2>Project 1</h2>
+            <p>
+              A brief description of Project 1. Highlight key features or
+              technologies used.
+            </p>
+          </div>
+          <div className="project-card">
+            <h2>Project 2</h2>
+            <p>
+              A brief description of Project 2. Highlight key features or
+              technologies used.
+            </p>
+          </div>
+          <div className="project-card">
+            <h2>Project 3</h2>
+            <p>
+              A brief description of Project 3. Highlight key features or
+              technologies used.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
   };
   const TaskTracker = () => (
     <div className="section">
