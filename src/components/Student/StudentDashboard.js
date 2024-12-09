@@ -80,23 +80,102 @@ const StudentDashboard = () => {
 
 const ProfileBuilder = () => {
   return (
-    <div className="section">
-      <h2>Profile Builder</h2>
-      <div className="card p-3 mb-3">
-        <h3>Education Details</h3>
-        <input type="text" className="form-control" placeholder="Enter Education Details" />
-      </div>
-      <div className="card p-3 mb-3">
-        <h3>Project Details</h3>
-        <input type="text" className="form-control" placeholder="Enter Project Details" />
-      </div>
-      <div className="card p-3 mb-3">
-        <h3>Skills</h3>
-        <input type="text" className="form-control" placeholder="Enter Skills" />
-      </div>
-      <div className="card p-3">
-        <h3>Resume Upload</h3>
-        <input type="file" className="form-control" accept=".pdf" />
+    <div style={{display: "flex",justifyContent: "center",alignItems: "center",height: "100vh", backgroundColor: "#f0f0f5",padding: "20px",}}>
+      <div className="section">
+        <div className="card p-3" style={{ maxWidth: "800px", width: "100%" }}>
+          <h2 style={{ textAlign: "center", fontSize: "1.8rem", margin: 0 }}>
+            Profile 
+          </h2>
+          <br />
+          <div className="form-grid" style={{display: "flex", gap: "1rem", flexWrap: "wrap",}}>
+            <div className="form-group" style={{ flex: 1, minWidth: "300px" }}>
+              <label htmlFor="fullName" className="form-label">
+                Full Name
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="fullName"
+                placeholder="Enter your full name"
+              />
+
+              <label htmlFor="education" className="form-label">
+                Education
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="education"
+                placeholder="Enter your highest qualification"
+              />
+
+              <label htmlFor="experience" className="form-label">
+                Work Experience
+              </label>
+              <textarea
+                className="form-control"
+                id="experience"
+                rows="3"
+                placeholder="Describe your work experience"
+              ></textarea>
+
+              <label htmlFor="resumeupload" className="form-label">
+                Upload Resume
+              </label>
+              <input type="file" className="form-control" id="resume" />
+            </div>
+
+            <div className="form-group" style={{ flex: 1, minWidth: "300px" }}>
+              <label htmlFor="email" className="form-label">
+                Email
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                placeholder="Enter your email"
+              />
+
+              <label htmlFor="skills" className="form-label">
+                Skills
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="skills"
+                placeholder="Enter your skills (e.g., JavaScript, React)"
+              />
+
+              <label htmlFor="certifications" className="form-label">
+                Certifications
+              </label>
+              <textarea
+                className="form-control"
+                id="certifications"
+                rows="2"
+                placeholder="List your certifications"
+              ></textarea>
+
+              <label htmlFor="careerGoals" className="form-label">
+                Career Goals
+              </label>
+              <textarea
+                className="form-control"
+                id="careerGoals"
+                rows="3"
+                placeholder="Describe your career aspirations"
+              ></textarea>
+            </div>
+          </div>
+          <br />
+          <button
+            className="btn btn-primary"
+            style={{ width: "100%" }}
+            onClick={() => alert("Profile Created successfully!")}
+          >
+            Create
+          </button>
+        </div>
       </div>
     </div>
   );

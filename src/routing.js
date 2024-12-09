@@ -15,6 +15,8 @@ import ForgetPassword from "./components/ForgetPassword";
 import AdminDashboard from "./components/company/AdminDashboard";
 import EmployeeDashboard from "./components/Employee/EmployeeDashboard";
 import About from "./components/About";
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -68,6 +70,7 @@ const router = createBrowserRouter([
         path: "aboutpage",
         element: <About />,
       },
+      
     ],
   },
 ]);

@@ -92,7 +92,7 @@ const PostJob = () => (
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      height: "100vh",
+      height: "112vh",
       backgroundColor: "#f0f0f5",
       padding: "20px",
     }}
@@ -152,7 +152,7 @@ const CandidateSearch = () => (
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      height: "100vh",
+      height: "112vh",
       backgroundColor: "#f0f0f5",
       padding: "20px",
     }}
@@ -187,14 +187,30 @@ const CandidateSearch = () => (
   </div>
 );
 
-const WorkTracker = ({ employees, newTask, setNewTask, assignTask }) => {
+const WorkTracker = () => {
+  const [newTask, setNewTask] = useState({ employee: '', details: '' });
+  const employees = ['Swapnil', 'Pankaja', 'Mohit']; 
+
+  const assignTask = () => {
+    if (newTask.details.trim()) {
+      const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+      // Add the new task
+      savedTasks.push(newTask);
+      // Save updated tasks to local storage
+      localStorage.setItem('tasks', JSON.stringify(savedTasks));
+      // Reset the form
+      setNewTask({ employee: '', details: '' });
+      alert('Task assigned successfully!');
+    }
+  };
+
   return (
     <div
       style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        height: "112vh",
         backgroundColor: "#f0f0f5",
         padding: "20px",
       }}
@@ -213,94 +229,88 @@ const WorkTracker = ({ employees, newTask, setNewTask, assignTask }) => {
           gap: "20px",
         }}
       >
-        <h2 style={{ textAlign: "center", fontSize: "1.8rem", margin: 0 }}>
-          Work Tracker
-        </h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-          <div>
-            <label
-              htmlFor="employeeSelect"
-              style={{ fontSize: "1.1rem", fontWeight: "600" }}
-            >
-              Assign Task To:
-            </label>
-            <select
-              id="employeeSelect"
-              className="form-control"
-              value={newTask.employee}
-              onChange={(e) =>
-                setNewTask({ ...newTask, employee: e.target.value })
-              }
-              style={{
-                fontSize: "1rem",
-                padding: "10px",
-                width: "100%",
-                marginTop: "5px",
-              }}
-            >
-              <option value="">Select an employee</option>
-              {employees.map((employee) => (
-                <option key={employee.id} value={employee.name}>
-                  {employee.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label
-              htmlFor="taskDetails"
-              style={{ fontSize: "1.1rem", fontWeight: "600" }}
-            >
-              Task Details:
-            </label>
-            <textarea
-              id="taskDetails"
-              className="form-control"
-              rows="6"
-              value={newTask.details}
-              onChange={(e) =>
-                setNewTask({ ...newTask, details: e.target.value })
-              }
-              placeholder="Describe the task details here"
-              style={{
-                fontSize: "1rem",
-                padding: "10px",
-                width: "100%",
-                marginTop: "5px",
-              }}
-            ></textarea>
-            {newTask.details.trim() === "" && (
-              <small style={{ color: "red", fontSize: "0.9rem" }}>
-                Task details are required.
-              </small>
-            )}
-          </div>
-          <button
-            onClick={assignTask}
-            disabled={newTask.details.trim() === ""}
-            style={{
-              width: "100%",
-              padding: "15px",
-              fontSize: "1.2rem",
-              backgroundColor: "#007bff",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: newTask.details.trim() === "" ? "not-allowed" : "pointer",
-              opacity: newTask.details.trim() === "" ? 0.6 : 1,
-            }}
-          >
-            Assign Task
-          </button>
-        </div>
+
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+      <div>
+        <label htmlFor="employeeSelect" style={{ fontSize: '1.1rem', fontWeight: '600' }}>
+          Assign Task To:
+        </label>
+        <select
+          id="employeeSelect"
+          className="form-control"
+          value={newTask.employee}
+          onChange={(e) => setNewTask({ ...newTask, employee: e.target.value })}
+          style={{
+            fontSize: '1rem',
+            padding: '10px',
+            width: '100%',
+            marginTop: '5px',
+          }}
+        >
+          <option value="">Select an employee</option>
+          {employees.map((employee, index) => (
+            <option key={index} value={employee}>
+              {employee}
+            </option>
+          ))}
+        </select>
       </div>
+      <div>
+        <label htmlFor="taskDetails" style={{ fontSize: '1.1rem', fontWeight: '600' }}>
+          Task Details:
+        </label>
+        <textarea
+          id="taskDetails"
+          className="form-control"
+          rows="6"
+          value={newTask.details}
+          onChange={(e) => setNewTask({ ...newTask, details: e.target.value })}
+          placeholder="Describe the task details here"
+          style={{
+            fontSize: '1rem',
+            padding: '10px',
+            width: '100%',
+            marginTop: '5px',
+          }}
+        ></textarea>
+        {newTask.details.trim() === '' && (
+          <small style={{ color: 'red', fontSize: '0.9rem' }}>Task details are required.</small>
+        )}
+      </div>
+      <button
+        onClick={assignTask}
+        disabled={newTask.details.trim() === ''}
+        style={{
+          width: '100%',
+          padding: '15px',
+          fontSize: '1.2rem',
+          backgroundColor: '#007bff',
+          color: 'white',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: newTask.details.trim() === '' ? 'not-allowed' : 'pointer',
+          opacity: newTask.details.trim() === '' ? 0.6 : 1,
+        }}
+      >
+        Assign Task
+      </button>
     </div>
+  </div>
+  </div>
   );
 };
 
 const ViewStudents = ({ students, deleteStudent }) => (
+  <div
+    style={{
+      justifyContent: "center",
+      alignItems: "center",
+      height: "112vh",
+      backgroundColor: "#f0f0f5",
+    }}
+  >
   <div className="section">
-    <h2>View Students</h2>
+    <center><h2>View Students</h2></center>
     <table className="table table-bordered">
       <thead className="thead-dark">
         <tr>
@@ -337,11 +347,20 @@ const ViewStudents = ({ students, deleteStudent }) => (
       </tbody>
     </table>
   </div>
+  </div>
 );
 
 const ViewEmployees = ({ employees, deleteEmployee }) => (
+  <div
+    style={{
+      justifyContent: "center",
+      alignItems: "center",
+      height: "112vh",
+      backgroundColor: "#f0f0f5",
+    }}
+  >
   <div className="section">
-    <h2>View Employees</h2>
+    <center><h2>View Employess</h2></center>
     <table className="table table-bordered">
       <thead className="thead-dark">
         <tr>
@@ -377,6 +396,7 @@ const ViewEmployees = ({ employees, deleteEmployee }) => (
         ))}
       </tbody>
     </table>
+  </div>
   </div>
 );
 
