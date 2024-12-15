@@ -47,6 +47,9 @@ const AdminDashboard = () => {
       <div className="sidebar">
         <h3>Admin Dashboard</h3>
         <ul>
+          <li onClick={() => setActiveSection("employeeRegister")}>
+            Employee Register
+          </li>
           <li onClick={() => setActiveSection("postJob")}>Post Job</li>
           <li onClick={() => setActiveSection("candidateSearch")}>
             Candidate Search
@@ -62,6 +65,7 @@ const AdminDashboard = () => {
       </div>
 
       <div className="content">
+        {activeSection === "employeeRegister" && <EmployeeRegister />}
         {activeSection === "postJob" && <PostJob />}
         {activeSection === "candidateSearch" && <CandidateSearch />}
         {activeSection === "workTracker" && (
@@ -86,25 +90,150 @@ const AdminDashboard = () => {
   );
 };
 
-const PostJob = () => (
+const EmployeeRegister = ({ profile, onProfileChange, saveProfile }) => (
   <div
     style={{
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      height: "112vh",
+      minHeight: "100vh",
       backgroundColor: "#f0f0f5",
       padding: "20px",
     }}
   >
-    <div className="section">
-      <div className="card p-3">
+    <div
+      className="section"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+      }}
+    >
+      <div
+        className="card"
+        style={{
+          width: "100%",
+          maxWidth: "800px",
+          padding: "20px",
+          backgroundColor: "#fff",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          borderRadius: "8px",
+        }}
+      >
+        <h2>Register Employee</h2>
+        <div className="form-container">
+          <div className="form-part" style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+            <div className="column" style={{ flex: "1 1 45%" }}>
+              <label>Name:</label>
+              <input type="text" className="form-control" placeholder="Enter name" />
+            </div>
+            <div className="column" style={{ flex: "1 1 45%" }}>
+              <label>Position:</label>
+              <input type="text" className="form-control" placeholder="Enter position" />
+            </div>
+            <div className="column" style={{ flex: "1 1 45%" }}>
+              <label>Phone:</label>
+              <input type="text" className="form-control" placeholder="Enter phone" />
+            </div>
+            <div className="column" style={{ flex: "1 1 45%" }}>
+              <label>Experience:</label>
+              <input type="text" className="form-control" placeholder="Enter experience" />
+            </div>
+          </div>
+          <div className="form-part" style={{ display: "flex", flexWrap: "wrap", gap: "20px", marginTop: "20px" }}>
+          <div className="column" style={{ flex: "1 1 45%" }}>
+              <label>Email:</label>
+              <input type="email" className="form-control" placeholder="Enter email" />
+            </div>
+            <div className="column" style={{ flex: "1 1 45%" }}>
+              <label>Education:</label>
+              <input type="text" className="form-control" placeholder="Enter education" />
+            </div>
+            <div className="column" style={{ flex: "1 1 45%" }}>
+              <label>Address:</label>
+              <textarea
+                className="form-control"
+                placeholder="Enter address"
+                style={{ resize: "none" }}
+              ></textarea>
+            </div>
+            
+            <div className="column" style={{ flex: "1 1 45%" }}>
+              <label>Skills:</label>
+              <textarea
+                className="form-control"
+                placeholder="Enter skills"
+                style={{ resize: "none" }}
+              ></textarea>            
+            </div>
+          </div>
+          <div
+            style={{
+              marginTop: "20px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <button
+              onClick={saveProfile}
+              style={{
+                padding: "10px 20px",
+                backgroundColor: "#007bff",
+                color: "#fff",
+                border: "none",
+                borderRadius: "4px",
+                cursor: "pointer",
+              }}
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const PostJob = () => (
+
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      minHeight: "100vh",
+      backgroundColor: "#f0f0f5",
+      padding: "20px",
+    }}
+  >
+    <div
+      className="section"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+      }}
+    >
+      <div
+        className="card"
+        style={{
+          width: "100%",
+          maxWidth: "800px",
+          padding: "20px",
+          backgroundColor: "#fff",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          borderRadius: "8px",
+        }}
+      >
         <h2 style={{ textAlign: "center", fontSize: "1.8rem", margin: 0 }}>
           Post Job
         </h2>
         <br />
         <div className="form-group">
           <label>Job Title:</label>
+
           <input
             type="text"
             className="form-control"
@@ -137,7 +266,33 @@ const PostJob = () => (
         </div>
         <button
           className="btn btn-primary"
-          onClick={() => alert("Job posted successfully!")}
+          
+          onClick={() => {
+            const newJob = {
+              title: document.querySelector('[placeholder="Enter job title"]').value,
+              description: document.querySelector('[placeholder="Enter job description"]').value,
+              skills: document.querySelector('[placeholder="Enter required skills"]').value,
+              salary: document.querySelector('[placeholder="Enter salary"]').value,
+            };
+
+            // Save job to localStorage
+            const existingJobs = JSON.parse(localStorage.getItem("postedJobs")) || [];
+            existingJobs.push(newJob);
+            localStorage.setItem("postedJobs", JSON.stringify(existingJobs));
+
+            alert("Job posted successfully!");
+
+            
+          }}
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "#007bff",
+            color: "#fff",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+
         >
           Post Job
         </button>
@@ -189,7 +344,7 @@ const CandidateSearch = () => (
 
 const WorkTracker = () => {
   const [newTask, setNewTask] = useState({ employee: '', details: '' });
-  const employees = ['Swapnil', 'Pankaja', 'Mohit']; 
+  const employees = ['Swapnil', 'Pankaja', 'Mohit'];
 
   const assignTask = () => {
     if (newTask.details.trim()) {
@@ -230,73 +385,73 @@ const WorkTracker = () => {
         }}
       >
 
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-      <div>
-        <label htmlFor="employeeSelect" style={{ fontSize: '1.1rem', fontWeight: '600' }}>
-          Assign Task To:
-        </label>
-        <select
-          id="employeeSelect"
-          className="form-control"
-          value={newTask.employee}
-          onChange={(e) => setNewTask({ ...newTask, employee: e.target.value })}
-          style={{
-            fontSize: '1rem',
-            padding: '10px',
-            width: '100%',
-            marginTop: '5px',
-          }}
-        >
-          <option value="">Select an employee</option>
-          {employees.map((employee, index) => (
-            <option key={index} value={employee}>
-              {employee}
-            </option>
-          ))}
-        </select>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          <div>
+            <label htmlFor="employeeSelect" style={{ fontSize: '1.1rem', fontWeight: '600' }}>
+              Assign Task To:
+            </label>
+            <select
+              id="employeeSelect"
+              className="form-control"
+              value={newTask.employee}
+              onChange={(e) => setNewTask({ ...newTask, employee: e.target.value })}
+              style={{
+                fontSize: '1rem',
+                padding: '10px',
+                width: '100%',
+                marginTop: '5px',
+              }}
+            >
+              <option value="">Select an employee</option>
+              {employees.map((employee, index) => (
+                <option key={index} value={employee}>
+                  {employee}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="taskDetails" style={{ fontSize: '1.1rem', fontWeight: '600' }}>
+              Task Details:
+            </label>
+            <textarea
+              id="taskDetails"
+              className="form-control"
+              rows="6"
+              value={newTask.details}
+              onChange={(e) => setNewTask({ ...newTask, details: e.target.value })}
+              placeholder="Describe the task details here"
+              style={{
+                fontSize: '1rem',
+                padding: '10px',
+                width: '100%',
+                marginTop: '5px',
+              }}
+            ></textarea>
+            {newTask.details.trim() === '' && (
+              <small style={{ color: 'red', fontSize: '0.9rem' }}>Task details are required.</small>
+            )}
+          </div>
+          <button
+            onClick={assignTask}
+            disabled={newTask.details.trim() === ''}
+            style={{
+              width: '100%',
+              padding: '15px',
+              fontSize: '1.2rem',
+              backgroundColor: '#007bff',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: newTask.details.trim() === '' ? 'not-allowed' : 'pointer',
+              opacity: newTask.details.trim() === '' ? 0.6 : 1,
+            }}
+          >
+            Assign Task
+          </button>
+        </div>
       </div>
-      <div>
-        <label htmlFor="taskDetails" style={{ fontSize: '1.1rem', fontWeight: '600' }}>
-          Task Details:
-        </label>
-        <textarea
-          id="taskDetails"
-          className="form-control"
-          rows="6"
-          value={newTask.details}
-          onChange={(e) => setNewTask({ ...newTask, details: e.target.value })}
-          placeholder="Describe the task details here"
-          style={{
-            fontSize: '1rem',
-            padding: '10px',
-            width: '100%',
-            marginTop: '5px',
-          }}
-        ></textarea>
-        {newTask.details.trim() === '' && (
-          <small style={{ color: 'red', fontSize: '0.9rem' }}>Task details are required.</small>
-        )}
-      </div>
-      <button
-        onClick={assignTask}
-        disabled={newTask.details.trim() === ''}
-        style={{
-          width: '100%',
-          padding: '15px',
-          fontSize: '1.2rem',
-          backgroundColor: '#007bff',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: newTask.details.trim() === '' ? 'not-allowed' : 'pointer',
-          opacity: newTask.details.trim() === '' ? 0.6 : 1,
-        }}
-      >
-        Assign Task
-      </button>
     </div>
-  </div>
-  </div>
   );
 };
 
@@ -309,44 +464,44 @@ const ViewStudents = ({ students, deleteStudent }) => (
       backgroundColor: "#f0f0f5",
     }}
   >
-  <div className="section">
-    <center><h2>View Students</h2></center>
-    <table className="table table-bordered">
-      <thead className="thead-dark">
-        <tr>
-          <th>Image</th>
-          <th>Name</th>
-          <th>Skills</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {students.map((student) => (
-          <tr key={student.id}>
-            <td>
-              <img
-                src={student.image}
-                alt="Student"
-                className="rounded-circle"
-                width="50"
-              />
-            </td>
-            <td>{student.name}</td>
-            <td>{student.skills}</td>
-            <td>
-              <button className="btn btn-warning btn-sm mx-1">Edit</button>
-              <button
-                className="btn btn-danger btn-sm mx-1"
-                onClick={() => deleteStudent(student.id)}
-              >
-                Delete
-              </button>
-            </td>
+    <div className="section">
+      <center><h2>View Students</h2></center>
+      <table className="table table-bordered">
+        <thead className="thead-dark">
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Skills</th>
+            <th>Actions</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          {students.map((student) => (
+            <tr key={student.id}>
+              <td>
+                <img
+                  src={student.image}
+                  alt="Student"
+                  className="rounded-circle"
+                  width="50"
+                />
+              </td>
+              <td>{student.name}</td>
+              <td>{student.skills}</td>
+              <td>
+                <button className="btn btn-warning btn-sm mx-1">Edit</button>
+                <button
+                  className="btn btn-danger btn-sm mx-1"
+                  onClick={() => deleteStudent(student.id)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   </div>
 );
 
@@ -359,44 +514,44 @@ const ViewEmployees = ({ employees, deleteEmployee }) => (
       backgroundColor: "#f0f0f5",
     }}
   >
-  <div className="section">
-    <center><h2>View Employess</h2></center>
-    <table className="table table-bordered">
-      <thead className="thead-dark">
-        <tr>
-          <th>Image</th>
-          <th>Name</th>
-          <th>Position</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {employees.map((employee) => (
-          <tr key={employee.id}>
-            <td>
-              <img
-                src={employee.image}
-                alt="Employee"
-                className="rounded-circle"
-                width="50"
-              />
-            </td>
-            <td>{employee.name}</td>
-            <td>{employee.position}</td>
-            <td>
-              <button className="btn btn-warning btn-sm mx-1">Edit</button>
-              <button
-                className="btn btn-danger btn-sm mx-1"
-                onClick={() => deleteEmployee(employee.id)}
-              >
-                Delete
-              </button>
-            </td>
+    <div className="section">
+      <center><h2>View Employess</h2></center>
+      <table className="table table-bordered">
+        <thead className="thead-dark">
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Actions</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          {employees.map((employee) => (
+            <tr key={employee.id}>
+              <td>
+                <img
+                  src={employee.image}
+                  alt="Employee"
+                  className="rounded-circle"
+                  width="50"
+                />
+              </td>
+              <td>{employee.name}</td>
+              <td>{employee.position}</td>
+              <td>
+                <button className="btn btn-warning btn-sm mx-1">Edit</button>
+                <button
+                  className="btn btn-danger btn-sm mx-1"
+                  onClick={() => deleteEmployee(employee.id)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   </div>
 );
 

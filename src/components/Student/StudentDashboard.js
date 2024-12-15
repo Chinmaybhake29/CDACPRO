@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 
 const StudentDashboard = () => {
@@ -188,8 +188,9 @@ const JobApply = ({ onApply }) => {
   ];
 
   return (
-    <div className="section">
-      <h2>Available Jobs</h2>
+    
+    <div style={{alignItems: "center",height: "100vh", backgroundColor: "#f0f0f5",padding: "20px",}}>
+      <center><h2>Available Jobs</h2></center>
       {jobs.map((job, index) => (
         <div key={index} className="card p-3 d-flex align-items-center justify-content-between mb-3">
           <div>
@@ -205,6 +206,7 @@ const JobApply = ({ onApply }) => {
           </button>
         </div>
       ))}
+
     </div>
   );
 };
@@ -233,11 +235,40 @@ const ViewAppliedJobs = ({ appliedJobs }) => (
   </div>
 );
 
-const JobAlert = () => (
-  <div className="section">
-    <h2>Job Alerts</h2>
-    <p>No new job alerts.</p>
-  </div>
-);
+const JobAlert = () => {
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    // Retrieve the posted jobs from localStorage
+    const storedJobs = JSON.parse(localStorage.getItem("postedJobs")) || [];
+    setJobs(storedJobs);
+  }, []);
+
+  return (
+    <div style={{alignItems: "center",height: "100vh", backgroundColor: "#f0f0f5",padding: "20px",}}>
+      <h2>Posted Jobs</h2>
+      {jobs.length > 0 ? (
+        <ul>
+          {jobs.map((job, index) => (
+            <li key={index}>
+              <h3>{job.title}</h3>
+              <p>
+                <strong>Description:</strong> {job.description}
+              </p>
+              <p>
+                <strong>Skills:</strong> {job.skills}
+              </p>
+              <p>
+                <strong>Salary:</strong> ${job.salary}
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No jobs posted yet.</p>
+      )}
+    </div>
+  );
+}
 
 export default StudentDashboard;
