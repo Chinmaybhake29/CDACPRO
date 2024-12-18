@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { v4 as uuidv4 } from "uuid";
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState("postJob");
 
@@ -90,113 +90,176 @@ const AdminDashboard = () => {
   );
 };
 
-const EmployeeRegister = ({ profile, onProfileChange, saveProfile }) => (
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      minHeight: "100vh",
-      backgroundColor: "#f0f0f5",
-      padding: "20px",
-    }}
-  >
-    <div
-      className="section"
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-      }}
-    >
+const EmployeeRegister = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    position: "",
+    phone: "",
+    experience: "",
+    email: "",
+    education: "",
+    address: "",
+    skills: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const saveProfile = () => {
+    const userId = uuidv4(); // Generate user ID
+    const userProfile = { ...formData, userId }; // Add userId 
+
+    // Log or handle the profile data
+    console.log("User Profile:", userProfile);
+
+    // Optionally, reset the form
+    setFormData({
+      name: "",
+      position: "",
+      phone: "",
+      experience: "",
+      email: "",
+      education: "",
+      address: "",
+      skills: "",
+    });
+
+    alert("Profile saved with User ID: " + userId);
+  };
+
+  return (
+    <div className="form-container">
       <div
-        className="card"
-        style={{
-          width: "100%",
-          maxWidth: "800px",
-          padding: "20px",
-          backgroundColor: "#fff",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          borderRadius: "8px",
-        }}
+        className="form-part"
+        style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}
       >
-        <h2>Register Employee</h2>
-        <div className="form-container">
-          <div className="form-part" style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-            <div className="column" style={{ flex: "1 1 45%" }}>
-              <label>Name:</label>
-              <input type="text" className="form-control" placeholder="Enter name" />
-            </div>
-            <div className="column" style={{ flex: "1 1 45%" }}>
-              <label>Position:</label>
-              <input type="text" className="form-control" placeholder="Enter position" />
-            </div>
-            <div className="column" style={{ flex: "1 1 45%" }}>
-              <label>Phone:</label>
-              <input type="text" className="form-control" placeholder="Enter phone" />
-            </div>
-            <div className="column" style={{ flex: "1 1 45%" }}>
-              <label>Experience:</label>
-              <input type="text" className="form-control" placeholder="Enter experience" />
-            </div>
-          </div>
-          <div className="form-part" style={{ display: "flex", flexWrap: "wrap", gap: "20px", marginTop: "20px" }}>
-          <div className="column" style={{ flex: "1 1 45%" }}>
-              <label>Email:</label>
-              <input type="email" className="form-control" placeholder="Enter email" />
-            </div>
-            <div className="column" style={{ flex: "1 1 45%" }}>
-              <label>Education:</label>
-              <input type="text" className="form-control" placeholder="Enter education" />
-            </div>
-            <div className="column" style={{ flex: "1 1 45%" }}>
-              <label>Address:</label>
-              <textarea
-                className="form-control"
-                placeholder="Enter address"
-                style={{ resize: "none" }}
-              ></textarea>
-            </div>
-            
-            <div className="column" style={{ flex: "1 1 45%" }}>
-              <label>Skills:</label>
-              <textarea
-                className="form-control"
-                placeholder="Enter skills"
-                style={{ resize: "none" }}
-              ></textarea>            
-            </div>
-          </div>
-          <div
-            style={{
-              marginTop: "20px",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <button
-              onClick={saveProfile}
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#007bff",
-                color: "#fff",
-                border: "none",
-                borderRadius: "4px",
-                cursor: "pointer",
-              }}
-            >
-              Save
-            </button>
-          </div>
+        <div className="column" style={{ flex: "1 1 45%" }}>
+          <label>Name:</label>
+          <input
+            type="text"
+            name="name"
+            className="form-control"
+            placeholder="Enter name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="column" style={{ flex: "1 1 45%" }}>
+          <label>Position:</label>
+          <input
+            type="text"
+            name="position"
+            className="form-control"
+            placeholder="Enter position"
+            value={formData.position}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="column" style={{ flex: "1 1 45%" }}>
+          <label>Phone:</label>
+          <input
+            type="text"
+            name="phone"
+            className="form-control"
+            placeholder="Enter phone"
+            value={formData.phone}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="column" style={{ flex: "1 1 45%" }}>
+          <label>Experience:</label>
+          <input
+            type="text"
+            name="experience"
+            className="form-control"
+            placeholder="Enter experience"
+            value={formData.experience}
+            onChange={handleChange}
+          />
         </div>
       </div>
+      <div
+        className="form-part"
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "20px",
+          marginTop: "20px",
+        }}
+      >
+        <div className="column" style={{ flex: "1 1 45%" }}>
+          <label>Email:</label>
+          <input
+            type="email"
+            name="email"
+            className="form-control"
+            placeholder="Enter email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="column" style={{ flex: "1 1 45%" }}>
+          <label>Education:</label>
+          <input
+            type="text"
+            name="education"
+            className="form-control"
+            placeholder="Enter education"
+            value={formData.education}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="column" style={{ flex: "1 1 45%" }}>
+          <label>Address:</label>
+          <textarea
+            name="address"
+            className="form-control"
+            placeholder="Enter address"
+            style={{ resize: "none" }}
+            value={formData.address}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+        <div className="column" style={{ flex: "1 1 45%" }}>
+          <label>Skills:</label>
+          <textarea
+            name="skills"
+            className="form-control"
+            placeholder="Enter skills"
+            style={{ resize: "none" }}
+            value={formData.skills}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+      </div>
+      <div
+        style={{
+          marginTop: "20px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <button
+          onClick={saveProfile}
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "#007bff",
+            color: "#fff",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+        >
+          Save
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const PostJob = () => (
-
   <div
     style={{
       display: "flex",
@@ -266,23 +329,27 @@ const PostJob = () => (
         </div>
         <button
           className="btn btn-primary"
-          
           onClick={() => {
             const newJob = {
-              title: document.querySelector('[placeholder="Enter job title"]').value,
-              description: document.querySelector('[placeholder="Enter job description"]').value,
-              skills: document.querySelector('[placeholder="Enter required skills"]').value,
-              salary: document.querySelector('[placeholder="Enter salary"]').value,
+              title: document.querySelector('[placeholder="Enter job title"]')
+                .value,
+              description: document.querySelector(
+                '[placeholder="Enter job description"]'
+              ).value,
+              skills: document.querySelector(
+                '[placeholder="Enter required skills"]'
+              ).value,
+              salary: document.querySelector('[placeholder="Enter salary"]')
+                .value,
             };
 
             // Save job to localStorage
-            const existingJobs = JSON.parse(localStorage.getItem("postedJobs")) || [];
+            const existingJobs =
+              JSON.parse(localStorage.getItem("postedJobs")) || [];
             existingJobs.push(newJob);
             localStorage.setItem("postedJobs", JSON.stringify(existingJobs));
 
             alert("Job posted successfully!");
-
-            
           }}
           style={{
             padding: "10px 20px",
@@ -292,7 +359,6 @@ const PostJob = () => (
             borderRadius: "4px",
             cursor: "pointer",
           }}
-
         >
           Post Job
         </button>
@@ -343,19 +409,19 @@ const CandidateSearch = () => (
 );
 
 const WorkTracker = () => {
-  const [newTask, setNewTask] = useState({ employee: '', details: '' });
-  const employees = ['Swapnil', 'Pankaja', 'Mohit'];
+  const [newTask, setNewTask] = useState({ employee: "", details: "" });
+  const employees = ["Swapnil", "Pankaja", "Mohit"];
 
   const assignTask = () => {
     if (newTask.details.trim()) {
-      const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+      const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
       // Add the new task
       savedTasks.push(newTask);
       // Save updated tasks to local storage
-      localStorage.setItem('tasks', JSON.stringify(savedTasks));
+      localStorage.setItem("tasks", JSON.stringify(savedTasks));
       // Reset the form
-      setNewTask({ employee: '', details: '' });
-      alert('Task assigned successfully!');
+      setNewTask({ employee: "", details: "" });
+      alert("Task assigned successfully!");
     }
   };
 
@@ -384,22 +450,26 @@ const WorkTracker = () => {
           gap: "20px",
         }}
       >
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
           <div>
-            <label htmlFor="employeeSelect" style={{ fontSize: '1.1rem', fontWeight: '600' }}>
+            <label
+              htmlFor="employeeSelect"
+              style={{ fontSize: "1.1rem", fontWeight: "600" }}
+            >
               Assign Task To:
             </label>
             <select
               id="employeeSelect"
               className="form-control"
               value={newTask.employee}
-              onChange={(e) => setNewTask({ ...newTask, employee: e.target.value })}
+              onChange={(e) =>
+                setNewTask({ ...newTask, employee: e.target.value })
+              }
               style={{
-                fontSize: '1rem',
-                padding: '10px',
-                width: '100%',
-                marginTop: '5px',
+                fontSize: "1rem",
+                padding: "10px",
+                width: "100%",
+                marginTop: "5px",
               }}
             >
               <option value="">Select an employee</option>
@@ -411,7 +481,10 @@ const WorkTracker = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="taskDetails" style={{ fontSize: '1.1rem', fontWeight: '600' }}>
+            <label
+              htmlFor="taskDetails"
+              style={{ fontSize: "1.1rem", fontWeight: "600" }}
+            >
               Task Details:
             </label>
             <textarea
@@ -419,32 +492,36 @@ const WorkTracker = () => {
               className="form-control"
               rows="6"
               value={newTask.details}
-              onChange={(e) => setNewTask({ ...newTask, details: e.target.value })}
+              onChange={(e) =>
+                setNewTask({ ...newTask, details: e.target.value })
+              }
               placeholder="Describe the task details here"
               style={{
-                fontSize: '1rem',
-                padding: '10px',
-                width: '100%',
-                marginTop: '5px',
+                fontSize: "1rem",
+                padding: "10px",
+                width: "100%",
+                marginTop: "5px",
               }}
             ></textarea>
-            {newTask.details.trim() === '' && (
-              <small style={{ color: 'red', fontSize: '0.9rem' }}>Task details are required.</small>
+            {newTask.details.trim() === "" && (
+              <small style={{ color: "red", fontSize: "0.9rem" }}>
+                Task details are required.
+              </small>
             )}
           </div>
           <button
             onClick={assignTask}
-            disabled={newTask.details.trim() === ''}
+            disabled={newTask.details.trim() === ""}
             style={{
-              width: '100%',
-              padding: '15px',
-              fontSize: '1.2rem',
-              backgroundColor: '#007bff',
-              color: 'white',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: newTask.details.trim() === '' ? 'not-allowed' : 'pointer',
-              opacity: newTask.details.trim() === '' ? 0.6 : 1,
+              width: "100%",
+              padding: "15px",
+              fontSize: "1.2rem",
+              backgroundColor: "#007bff",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: newTask.details.trim() === "" ? "not-allowed" : "pointer",
+              opacity: newTask.details.trim() === "" ? 0.6 : 1,
             }}
           >
             Assign Task
@@ -465,7 +542,9 @@ const ViewStudents = ({ students, deleteStudent }) => (
     }}
   >
     <div className="section">
-      <center><h2>View Students</h2></center>
+      <center>
+        <h2>View Students</h2>
+      </center>
       <table className="table table-bordered">
         <thead className="thead-dark">
           <tr>
@@ -515,7 +594,9 @@ const ViewEmployees = ({ employees, deleteEmployee }) => (
     }}
   >
     <div className="section">
-      <center><h2>View Employess</h2></center>
+      <center>
+        <h2>View Employess</h2>
+      </center>
       <table className="table table-bordered">
         <thead className="thead-dark">
           <tr>
