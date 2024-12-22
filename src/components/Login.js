@@ -12,7 +12,7 @@ const Login = () => {
     const username = form.username.value.trim();
     const password = form.password.value.trim();
 
-    if ((username === "admin" && password === "admin123")) {
+    if ((username === "${savedProfile.userId}" && password === "admin123")) {
       navigate("/employeepage");
     } else {
       alert("Invalid credentials. Please try again.");

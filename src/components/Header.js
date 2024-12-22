@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../assests/logo1.jpg";
 
+
 export default function Header() {
-  return (
-    <>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    return (
+        <>
+             <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
           <Link class="navbar-brand" to="/">
             <img
@@ -106,6 +107,6 @@ export default function Header() {
           </div>
         </div>
       </nav>
-    </>
-  );
+        </>
+    );
 }
