@@ -1,0 +1,54 @@
+{
+    "responses": [
+        
+    {
+            "query": "Hi",
+            "response": "Hello! How can I assist you today?"
+    },
+    {
+        "query": "Who design you?",
+        "response": "Am designed by Chinmay Bhake. I'm here to assist you with your career queries!"
+    },
+      {
+        "query": "What is your name?",
+        "response": "I am your assitant. I'm here to assist you with your career queries!"
+      },
+      {
+        "query": "What jobs do you offer?",
+        "response": "We offer a variety of job categories such as Software Development, Marketing, Web Design, IT Support, Finance, HR, and more!"
+      },
+      {
+        "query": "How can I apply for a job?",
+        "response": "You can browse job listings on our platform and click on the 'Apply Now' button next to the job you're interested in."
+      },
+      {
+        "query": "How can I reset my password?",
+        "response": "To reset your password, click on 'Forgot Password' on the login page and follow the instructions."
+      },
+      {
+        "query": "What is the salary range for software developers?",
+        "response": "The salary range for software developers can vary depending on the company and experience level. However, on average, salaries range from $50,000 to $120,000 per year."
+      },
+      {
+        "query": "How do I contact support?",
+        "response": "You can contact our support team via email at support@carrertalentbridege.com or use the 'Contact Us' section on the website."
+      },
+      {
+        "query": "What are the job requirements for marketing positions?",
+        "response": "Marketing positions typically require skills in communication, creativity, and experience with digital marketing tools such as SEO, Google Analytics, and social media platforms."
+      },
+      {
+        "query": "How can I update my profile?",
+        "response": "You can update your profile by logging into your account and going to the 'Profile' section. There, you can edit your personal details and upload a new resume."
+      },
+      {
+        "query": "Do you offer internships?",
+        "response": "Yes, we offer internship opportunities in various fields such as Software Development, Marketing, and IT Support. Check our internship section for available openings."
+      },
+      {
+        "query": "Can I apply for multiple jobs at once?",
+        "response": "Yes, you can apply for multiple jobs at once by submitting applications for each role you're interested in. Just make sure your resume is tailored to the job you're applying for."
+      }
+    ]
+  }
+  

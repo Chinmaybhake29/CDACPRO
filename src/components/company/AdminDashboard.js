@@ -50,6 +50,8 @@ const AdminDashboard = () => {
           <li onClick={() => setActiveSection("employeeRegister")}>
             Employee Register
           </li>
+          <li onClick={() => setActiveSection("StudentRegister")}>Student Register</li>
+
           <li onClick={() => setActiveSection("postJob")}>Post Job</li>
           <li onClick={() => setActiveSection("candidateSearch")}>
             Candidate Search
@@ -68,7 +70,9 @@ const AdminDashboard = () => {
       </div>
 
       <div className="content">
+        
         {activeSection === "employeeRegister" && <EmployeeRegister />}
+        {activeSection === "StudentRegister" && <StudentRegister />}
         {activeSection === "postJob" && <PostJob />}
         {activeSection === "candidateSearch" && <CandidateSearch />}
         {activeSection === "workTracker" && (
@@ -96,57 +100,57 @@ const AdminDashboard = () => {
   );
 };
 
-const EmployeeRegister = () => {
+function EmployeeRegister() {
   const [formData, setFormData] = useState({
-    name: "",
-    position: "",
-    phone: "",
-    experience: "",
-    email: "",
-    education: "",
-    address: "",
-    skills: "",
+    name: '',
+    dob: '', // Date of birth
+    gender: '', // Gender (e.g., Male, Female, Other)
+    phone: '',
+    email: '',
+    address: '',
+    jobTitle: '', // Job Title
+    department: '', // Department
+    employeeId: '', // Store the generated employee ID
   });
 
+  // Handle form field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
+  // Function to generate a unique employee ID
+  const generateEmployeeId = () => {
+    const timestamp = new Date().getTime(); // Get current timestamp
+    const randomNum = Math.floor(Math.random() * 1000); // Generate random number
+    return `E-${timestamp}-${randomNum}`; // Format as 'E-<timestamp>-<randomNumber>'
+  };
+
+  // Handle form submission
   const saveProfile = () => {
-    const userId = uuidv4(); // Generate user ID
-    const userProfile = { ...formData, userId }; // Add userId 
+    // Generate employee ID when form is submitted
+    const employeeId = generateEmployeeId();
 
-    // Save the user profile to localStorage
-    localStorage.setItem("userProfile", JSON.stringify(userProfile));
+    // Add the generated employee ID to the form data
+    setFormData((prevData) => ({
+      ...prevData,
+      employeeId: employeeId,
+    }));
 
-    // Log or handle the profile data
-    console.log("User Profile:", userProfile);
-
-    // Optionally, reset the form
-    setFormData({
-      name: "",
-      position: "",
-      phone: "",
-      experience: "",
-      email: "",
-      education: "",
-      address: "",
-      skills: "",
-    });
-
-    alert("Profile saved with User ID: " + userId);
+    // Here you can handle saving the form data to a backend or local state
+    alert(`Form submitted successfully! Employee ID: ${employeeId}`);
   };
-
 
   return (
-    <div className="form-container">
-      <div
-        className="form-part"
-        style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}
-      >
-        <div className="column" style={{ flex: "1 1 45%" }}>
-          <label>Name:</label>
+    <div className="form-container" style={{ padding: '20px', maxWidth: '900px', margin: '0 auto', backgroundColor: '#f9f9f9', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+      <h2 style={{ textAlign: 'center', color: '#333' }}>Employee Registration Form</h2>
+      
+      <div className="form-part" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '20px' }}>
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Name:</label>
           <input
             type="text"
             name="name"
@@ -154,21 +158,40 @@ const EmployeeRegister = () => {
             placeholder="Enter name"
             value={formData.name}
             onChange={handleChange}
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
           />
         </div>
-        <div className="column" style={{ flex: "1 1 45%" }}>
-          <label>Position:</label>
+
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Date of Birth:</label>
           <input
-            type="text"
-            name="position"
+            type="date"
+            name="dob"
             className="form-control"
-            placeholder="Enter position"
-            value={formData.position}
+            value={formData.dob}
             onChange={handleChange}
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
           />
         </div>
-        <div className="column" style={{ flex: "1 1 45%" }}>
-          <label>Phone:</label>
+
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Gender:</label>
+          <select
+            name="gender"
+            className="form-control"
+            value={formData.gender}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
+          >
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Phone:</label>
           <input
             type="text"
             name="phone"
@@ -176,31 +199,14 @@ const EmployeeRegister = () => {
             placeholder="Enter phone"
             value={formData.phone}
             onChange={handleChange}
-          />
-        </div>
-        <div className="column" style={{ flex: "1 1 45%" }}>
-          <label>Experience:</label>
-          <input
-            type="text"
-            name="experience"
-            className="form-control"
-            placeholder="Enter experience"
-            value={formData.experience}
-            onChange={handleChange}
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
           />
         </div>
       </div>
-      <div
-        className="form-part"
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "20px",
-          marginTop: "20px",
-        }}
-      >
-        <div className="column" style={{ flex: "1 1 45%" }}>
-          <label>Email:</label>
+
+      <div className="form-part" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '20px' }}>
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Email:</label>
           <input
             type="email"
             name="email"
@@ -208,66 +214,258 @@ const EmployeeRegister = () => {
             placeholder="Enter email"
             value={formData.email}
             onChange={handleChange}
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
           />
         </div>
-        <div className="column" style={{ flex: "1 1 45%" }}>
-          <label>Education:</label>
-          <input
-            type="text"
-            name="education"
-            className="form-control"
-            placeholder="Enter education"
-            value={formData.education}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="column" style={{ flex: "1 1 45%" }}>
-          <label>Address:</label>
+
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Address:</label>
           <textarea
             name="address"
             className="form-control"
             placeholder="Enter address"
-            style={{ resize: "none" }}
+            style={{ width: '100%', resize: 'none', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px', height: '100px' }}
             value={formData.address}
             onChange={handleChange}
           ></textarea>
         </div>
-        <div className="column" style={{ flex: "1 1 45%" }}>
-          <label>Skills:</label>
-          <textarea
-            name="skills"
+
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Job Title:</label>
+          <input
+            type="text"
+            name="jobTitle"
             className="form-control"
-            placeholder="Enter skills"
-            style={{ resize: "none" }}
-            value={formData.skills}
+            placeholder="Enter job title"
+            value={formData.jobTitle}
             onChange={handleChange}
-          ></textarea>
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
+          />
+        </div>
+
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Department:</label>
+          <input
+            type="text"
+            name="department"
+            className="form-control"
+            placeholder="Enter department"
+            value={formData.department}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
+          />
         </div>
       </div>
-      <div
-        style={{
-          marginTop: "20px",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
+
+      <div style={{ marginTop: '30px', display: 'flex', justifyContent: 'center' }}>
         <button
           onClick={saveProfile}
           style={{
-            padding: "10px 20px",
-            backgroundColor: "#007bff",
-            color: "#fff",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
+            padding: '12px 24px',
+            backgroundColor: '#007bff',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            boxShadow: '0 4px 8px rgba(0, 123, 255, 0.2)',
           }}
         >
-          Save
+          Save Profile
         </button>
       </div>
+
+      {formData.employeeId && (
+        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+          <p><strong>Generated Employee ID:</strong> {formData.employeeId}</p>
+        </div>
+      )}
     </div>
   );
-};
+}
+
+
+function StudentRegister() {
+  const [formData, setFormData] = useState({
+    name: '',
+    dob: '', // Date of birth
+    gender: '', // Gender (e.g., Male, Female, Other)
+    phone: '',
+    email: '',
+    address: '',
+    major: '', // Field of Study
+    year: '', // Year of Study
+    userId: '', // Store the generated user ID
+  });
+
+  // Handle form field changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Function to generate a unique user ID
+  const generateUserId = () => {
+    const timestamp = new Date().getTime(); // Get current timestamp
+    const randomNum = Math.floor(Math.random() * 1000); // Generate random number
+    return `S-${timestamp}-${randomNum}`; // Format as 'S-<timestamp>-<randomNumber>'
+  };
+
+  const saveProfile = () => {
+    const userId = generateUserId();
+
+    setFormData((prevData) => ({
+      ...prevData,
+      userId: userId,
+    }));
+    //show userid
+    alert(`Form submitted successfully! User ID: ${userId}`);
+  };
+
+  return (
+    <div className="form-container" style={{ padding: '20px', maxWidth: '900px', margin: '0 auto', backgroundColor: '#f9f9f9', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+      <h2 style={{ textAlign: 'center', color: '#333' }}>Student Registration Form</h2>
+      
+      <div className="form-part" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '20px' }}>
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Name:</label>
+          <input
+            type="text"
+            name="name"
+            className="form-control"
+            placeholder="Enter name"
+            value={formData.name}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
+          />
+        </div>
+
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Date of Birth:</label>
+          <input
+            type="date"
+            name="dob"
+            className="form-control"
+            value={formData.dob}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
+          />
+        </div>
+
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Gender:</label>
+          <select
+            name="gender"
+            className="form-control"
+            value={formData.gender}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
+          >
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Phone:</label>
+          <input
+            type="text"
+            name="phone"
+            className="form-control"
+            placeholder="Enter phone"
+            value={formData.phone}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
+          />
+        </div>
+      </div>
+
+      <div className="form-part" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '20px' }}>
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Email:</label>
+          <input
+            type="email"
+            name="email"
+            className="form-control"
+            placeholder="Enter email"
+            value={formData.email}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
+          />
+        </div>
+
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Address:</label>
+          <textarea
+            name="address"
+            className="form-control"
+            placeholder="Enter address"
+            style={{ width: '100%', resize: 'none', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px', height: '100px' }}
+            value={formData.address}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Major/Field of Study:</label>
+          <input
+            type="text"
+            name="major"
+            className="form-control"
+            placeholder="Enter your major/field of study"
+            value={formData.major}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
+          />
+        </div>
+
+        <div className="column" style={{ flex: '1 1 45%', minWidth: '280px' }}>
+          <label style={{ fontWeight: 'bold', color: '#333' }}>Year of Study:</label>
+          <input
+            type="number"
+            name="year"
+            className="form-control"
+            placeholder="Enter year of study"
+            value={formData.year}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '14px' }}
+          />
+        </div>
+      </div>
+
+      <div style={{ marginTop: '30px', display: 'flex', justifyContent: 'center' }}>
+        <button
+          onClick={saveProfile}
+          style={{
+            padding: '12px 24px',
+            backgroundColor: '#007bff',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            boxShadow: '0 4px 8px rgba(0, 123, 255, 0.2)',
+          }}
+        >
+          Save Profile
+        </button>
+      </div>
+
+      {formData.userId && (
+        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+          <p><strong>Generated User ID:</strong> {formData.userId}</p>
+        </div>
+      )}
+    </div>
+  );
+}
 
 const PostJob = () => (
   <div

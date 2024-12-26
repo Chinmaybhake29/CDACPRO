@@ -22,8 +22,10 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.termsAccepted) {
-      console.log("Registration successful:", formData);
-      navigate("/loginpage"); // Redirect to the login page after registration
+      // Save user data to localStorage
+      localStorage.setItem("userData", JSON.stringify(formData));
+      alert("Registration successful!");
+      navigate("/loginpage"); // Redirect to the login page
     } else {
       alert("Please accept the terms and conditions.");
     }
@@ -35,7 +37,6 @@ const Register = () => {
         <div className="form-box register">
           <form onSubmit={handleSubmit}>
             <h1>Registration</h1>
-
             <div className="input-box">
               <input
                 type="text"
@@ -47,7 +48,6 @@ const Register = () => {
               />
               <FaUser className="icon" />
             </div>
-
             <div className="input-box">
               <input
                 type="email"
@@ -59,7 +59,6 @@ const Register = () => {
               />
               <FaEnvelope className="icon" />
             </div>
-
             <div className="input-box">
               <input
                 type="password"
@@ -71,7 +70,6 @@ const Register = () => {
               />
               <FaLock className="icon" />
             </div>
-
             <div className="remember-forgot">
               <label>
                 <input
@@ -83,9 +81,7 @@ const Register = () => {
                 I agree to terms & conditions
               </label>
             </div>
-
             <button type="submit">Register</button>
-
             <div className="register-link">
               <p>
                 Already have an account?{" "}

@@ -8,6 +8,7 @@ import l5 from "../assests/jobcategorylogo/software-engineer.png";
 import l6 from "../assests/jobcategorylogo/technical.png";
 import l7 from "../assests/jobcategorylogo/test.png";
 import l8 from "../assests/jobcategorylogo/web-design.png";
+import Chatbot from "./chatboat/Chatbot";  // Import Chatbot component
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -89,6 +90,9 @@ export default function Home() {
           <div className="text-center mt-4">No results found.</div>
         )}
       </div>
+
+      {/* Add the Chatbot component here */}
+      <Chatbot />
     </div>
   );
 }
