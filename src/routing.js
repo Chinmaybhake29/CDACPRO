@@ -11,7 +11,7 @@ import StudentDashboard from "./components/Student/StudentDashboard";
 import ForgetPassword from "./components/ForgetPassword";
 import AdminDashboard from "./components/company/AdminDashboard";
 import EmployeeDashboard from "./components/Employee/EmployeeDashboard";
-
+import ClientDashboard from "./components/Client/ClientDashboard";
 // Routes with Header and Footer
 const appRoutes = [
   {
@@ -60,6 +60,10 @@ const dashboardRoutes = [
     path: "employeepage",
     element: <EmployeeDashboard />,
   },
+  {
+    path: "clientpage",
+    element: <ClientDashboard />,
+  }
 ];
 
 // Combine both route groups

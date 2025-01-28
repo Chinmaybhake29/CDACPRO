@@ -66,6 +66,9 @@ const Login = () => {
     } else if (role === "Admin") {
       console.log("Admin Login successful:", formData);
       navigate("/admingpage"); // Redirect to Admin dashboard
+    } else if(role === "Client"){
+       console.log("Client Login successful:", formData);
+       navigate("/clientpage"); // Redirect to Client dashboard
     }
   };
 
@@ -109,6 +112,16 @@ const Login = () => {
                     onChange={(e) => setRole(e.target.value)}
                   />
                   Admin
+                </label>
+                <label className="ms-3">
+                  <input
+                    type="radio"  
+                    name="role"
+                    value="Client"
+                    checked={role === "Client"}
+                    onChange={(e) => setRole(e.target.value)}
+                  />
+                  Client
                 </label>
               </div>
             </div>
