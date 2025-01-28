@@ -56,7 +56,7 @@ export default function Header() {
                 className="btn btn-primary"
                 onClick={() => navigate("/loginpage")}
               >
-                Sign Up
+                Login / Sign Up
               </button>
             )}
           </div>

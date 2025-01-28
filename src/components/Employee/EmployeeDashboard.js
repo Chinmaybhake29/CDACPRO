@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Profile from "./Profile";
 import TaskTracker from "./TaskTracker";
-import Calendar from "./Calendar";
-import Schedule from "./schedule";
+import Calendar from "./schedule";
+import Schedule from "./Calender";
+import Feedback from "./Feedback";
+
 const EmployeeDashboard = () => {
   const [activeSection, setActiveSection] = useState("profile");
   const [profile, setProfile] = useState({
@@ -10,6 +12,12 @@ const EmployeeDashboard = () => {
     email: "",
     position: "",
   });
+
+  const logout = () => {
+    localStorage.clear(); 
+    alert("You have been logged out!");
+    window.location.href = "/loginpage"; 
+  };
 
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
@@ -27,10 +35,11 @@ const EmployeeDashboard = () => {
     }
   };
 
+
   return (
     <div className="dashboard">
       {/* Sidebar */}
-      <div className="sidebar">
+      <div className="sidebar bg-dark text-light p-3" style={{ width: "250px", height: "170vh" }}>
         <h3>Employee Dashboard</h3>
         <ul>
           <li
@@ -57,7 +66,16 @@ const EmployeeDashboard = () => {
           >
             Schedule
           </li>
+          <li 
+            className={activeSection === "Feedback" ? "active" : ""}
+            onClick={() => setActiveSection("Feedback")}
+          >
+            Feedback
+          </li>
         </ul>
+        <button className="btn btn-secondary logout-button" onClick={logout}>
+          Logout
+        </button>
       </div>
 
       {/* Content Area */}
@@ -72,6 +90,7 @@ const EmployeeDashboard = () => {
         {activeSection === "taskTracker" && <TaskTracker />}
         {activeSection === "calender" && <Calendar />}
         {activeSection === "Schedule" && <Schedule />}
+        {activeSection === "Feedback" && <Feedback />}
       </div>
     </div>
   );

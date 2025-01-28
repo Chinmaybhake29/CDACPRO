@@ -22,15 +22,16 @@ const StudentDashboard = () => {
     }
   };
 
-  const handleSignOut = () => {
-    console.log("User signed out");
-   
+  const logout = () => {
+    localStorage.clear(); 
+    alert("You have been logged out!");
+    window.location.href = "/loginpage"; 
   };
 
   return (
     <div className="dashboard d-flex">
       {/* Sidebar */}
-      <div className="sidebar bg-dark text-light p-3" style={{ width: "250px", height: "100vh" }}>
+      <div className="sidebar bg-dark text-light p-3" style={{ width: "250px", height: "340vh" }}>
         <div className="profile text-center">
           <img
             src={studentImage || "placeholder.png"}
@@ -72,6 +73,9 @@ const StudentDashboard = () => {
             Job Alerts
           </li>
         </ul>
+        <button className="btn btn-secondary logout-button" onClick={logout}>
+          Logout
+        </button>
       </div>
 
       {/* Content */}

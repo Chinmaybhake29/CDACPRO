@@ -142,33 +142,33 @@ const Login = () => {
             {/* Error Message */}
             {error && <p style={{ color: "red" }}>{error}</p>}
 
-           {/* Remember Me Checkbox */}
-<div className="remember-forgot">
-  <label>
-    <input
-      type="checkbox"
-      name="rememberMe"
-      checked={formData.rememberMe}
-      onChange={handleChange}
-    />{" "}
-    Remember me
-  </label>
+            {/* Remember Me Checkbox */}
+            <div className="remember-forgot">
+              <label>
+                <input
+                  type="checkbox"
+                  name="rememberMe"
+                  checked={formData.rememberMe}
+                  onChange={handleChange}
+                />{" "}
+                Remember me
+              </label>
 
-  {/* Changed from <a> to <button> */}
-  <button
-    onClick={handleForgetpass}
-    style={{
-      background: "none",
-      border: "none",
-      color: "blue",
-      cursor: "pointer",
-      textDecoration: "underline",
-    }}
-    aria-label="Forgot Password"
-  >
-    Forgot Password
-  </button>
-</div>
+              {/* Changed from <a> to <button> */}
+              <button
+                onClick={handleForgetpass}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "blue",
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                }}
+                aria-label="Forgot Password"
+              >
+                Forgot Password
+              </button>
+            </div>
 
 
             {/* Submit Button */}

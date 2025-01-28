@@ -1,5 +1,4 @@
 import React from "react";
-
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 
@@ -13,10 +12,8 @@ import ForgetPassword from "./components/ForgetPassword";
 import AdminDashboard from "./components/company/AdminDashboard";
 import EmployeeDashboard from "./components/Employee/EmployeeDashboard";
 
-
-
-
-const router = createBrowserRouter([
+// Routes with Header and Footer
+const appRoutes = [
   {
     path: "/",
     element: <App />,
@@ -37,31 +34,38 @@ const router = createBrowserRouter([
         path: "loginpage",
         element: <Login />,
       },
-      
       {
         path: "registerpage",
         element: <Register />,
       },
       {
         path: "forgotpasswordpage",
-        element: <ForgetPassword/>,
+        element: <ForgetPassword />,
       },
-      
-      {
-        path: "studentpage",
-        element: <StudentDashboard/>,
-      },
-      {
-        path: "admingpage",
-        element: <AdminDashboard/>,
-      },
-      {
-        path: "employeepage",
-        element: <EmployeeDashboard/>,
-      },
- 
     ],
   },
+];
+
+// Routes without Header and Footer
+const dashboardRoutes = [
+  {
+    path: "studentpage",
+    element: <StudentDashboard />,
+  },
+  {
+    path: "admingpage",
+    element: <AdminDashboard />,
+  },
+  {
+    path: "employeepage",
+    element: <EmployeeDashboard />,
+  },
+];
+
+// Combine both route groups
+const router = createBrowserRouter([
+  ...appRoutes,
+  ...dashboardRoutes,
 ]);
 
 export default router;

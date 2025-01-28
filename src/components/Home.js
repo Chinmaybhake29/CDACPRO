@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Popup from 'reactjs-popup';
 import { Carousel } from "react-bootstrap";
 import logo from "../assests/women.png";
 import l1 from "../assests/jobcategorylogo/accounts.png";
@@ -12,15 +13,17 @@ import l8 from "../assests/jobcategorylogo/web-design.png";
 import contactimg from "../assests/contact.jpg";
 import aboutimg from "../assests/homeimg2.jpg"
 export default function Home() {
+  const [selectedJob, setSelectedJob] = useState(null);
+
   const [jobs] = useState([
-    { id: 1, title: "Software Engineer", salary: "3 LPA", logo: "https://via.placeholder.com/100" },
-    { id: 2, title: "Marketing Specialist", salary: "2.5 LPA", logo: "https://via.placeholder.com/100" },
-    { id: 3, title: "UI/UX Designer", salary: "3 LPA", logo: "https://via.placeholder.com/100" },
-    { id: 4, title: "IT Support Technician", salary: "3.5 LPA", logo: "https://via.placeholder.com/100" },
-    { id: 5, title: "HR Manager", salary: "5 LPA", logo: "https://via.placeholder.com/100" },
-    { id: 6, title: "Finance Analyst", salary: "4 LPA", logo: "https://via.placeholder.com/100" },
-    { id: 7, title: "DevOps Engineer", salary: "9 LPA", logo: "https://via.placeholder.com/100" },
-    { id: 8, title: "Graphic Designer", salary: "3.8 LPA", logo: "https://via.placeholder.com/100" },
+    { id: 1, title: <Popup trigger={<button className="btn btn-primary">Software Engineer</button>} position="bottom center"></Popup>, salary: "3 LPA", logo: "https://via.placeholder.com/100" },
+    { id: 2, title: <Popup trigger={<button className="btn btn-primary">Marketing Specialist</button>} position="bottom center"></Popup>, salary: "2.5 LPA", logo: "https://via.placeholder.com/100" },
+    { id: 3, title: <Popup trigger={<button className="btn btn-primary">UI/UX Designer</button>} position="bottom center"></Popup>, salary: "3 LPA", logo: "https://via.placeholder.com/100" },
+    { id: 4, title: <Popup trigger={<button className="btn btn-primary">IT Support Technician</button>} position="bottom center"></Popup>, salary: "3.5 LPA", logo: "https://via.placeholder.com/100" },
+    { id: 5, title: <Popup trigger={<button className="btn btn-primary">HR Manager</button>} position="bottom center"></Popup>, salary: "5 LPA", logo: "https://via.placeholder.com/100" },
+    { id: 6, title: <Popup trigger={<button className="btn btn-primary">Finance Analyst</button>} position="bottom center"></Popup>, salary: "4 LPA", logo: "https://via.placeholder.com/100" },
+    { id: 7, title: <Popup trigger={<button className="btn btn-primary">DevOps Engineer</button>} position="bottom center"></Popup>, salary: "9 LPA", logo: "https://via.placeholder.com/100" },
+    { id: 8, title: <Popup trigger={<button className="btn btn-primary">Graphic Designer</button>} position="bottom center"></Popup>, salary: "3.8 LPA", logo: "https://via.placeholder.com/100" },
   ]);
 
   const jobCategories = [
@@ -55,6 +58,15 @@ export default function Home() {
     }, []);
 
   const jobChunks = chunkArray(filteredJobs, 4);
+
+  const handleJobClick = (job) => {
+    setSelectedJob(job);
+  };
+
+  // Handle close button click
+  const handleClose = () => {
+    setSelectedJob(null);
+  };
 
   return (
     <div className="homepage container-fluid">

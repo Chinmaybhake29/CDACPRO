@@ -12,10 +12,16 @@ const AdminDashboard = () => {
     setActiveSection(sectionId);
   };
 
+  const logout = () => {
+    localStorage.clear(); 
+    alert("You have been logged out!");
+    window.location.href = "/loginpage"; 
+  };
+
   return (
     <div className="dashboard">
       {/* Sidebar */}
-      <div className="sidebar">
+      <div className="sidebar bg-dark text-light p-3" style={{ width: "250px", height: "340vh" }}>
         <h3>Admin Dashboard</h3>
         <ul>
         
@@ -25,6 +31,9 @@ const AdminDashboard = () => {
           <li onClick={() => showSection("viewEmployees")}>Employees Management</li>
           <li onClick={() => showSection("transactions")}>Transactions</li>
         </ul>
+        <button className="btn btn-secondary logout-button" onClick={logout}>
+          Logout
+        </button>
       </div>
 
       {/* Content Area */}
